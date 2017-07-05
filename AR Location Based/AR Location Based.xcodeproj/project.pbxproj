@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6159623325CB520C43CADE55 /* libPods-AR Location Based.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C51AAE02DD41354723CA9EC /* libPods-AR Location Based.a */; };
 		7B6ED2E81AFE4D8D00A04417 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6ED2E71AFE4D8D00A04417 /* main.m */; };
 		7B6ED2F11AFE4D8D00A04417 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6ED2EF1AFE4D8D00A04417 /* Main.storyboard */; };
 		7B6ED2F31AFE4D8D00A04417 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6ED2F21AFE4D8D00A04417 /* Images.xcassets */; };
@@ -26,6 +27,7 @@
 		7B6ED3401AFEAE4F00A04417 /* AugmentedRealityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6ED33A1AFEAE4F00A04417 /* AugmentedRealityController.m */; };
 		7B6ED3411AFEAE4F00A04417 /* GEOLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6ED33C1AFEAE4F00A04417 /* GEOLocations.m */; };
 		7B6ED3441AFEB50D00A04417 /* MarkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6ED3431AFEB50D00A04417 /* MarkerView.m */; };
+		B5C3867FF5AD9F37BB33471B /* libPods-AR Location BasedTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577F4026927A0CB2B7D57C2A /* libPods-AR Location BasedTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C51AAE02DD41354723CA9EC /* libPods-AR Location Based.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AR Location Based.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13BDA9287269C5D59F0A657B /* Pods-AR Location BasedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR Location BasedTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AR Location BasedTests/Pods-AR Location BasedTests.debug.xcconfig"; sourceTree = "<group>"; };
+		47DA05B0C4FC6A524FC76177 /* Pods-AR Location Based.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR Location Based.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AR Location Based/Pods-AR Location Based.debug.xcconfig"; sourceTree = "<group>"; };
+		575DDED3BF2D640B9B436CA5 /* Pods-AR Location Based.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR Location Based.release.xcconfig"; path = "Pods/Target Support Files/Pods-AR Location Based/Pods-AR Location Based.release.xcconfig"; sourceTree = "<group>"; };
+		577F4026927A0CB2B7D57C2A /* libPods-AR Location BasedTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AR Location BasedTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6ED2E21AFE4D8D00A04417 /* AR Location Based.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR Location Based.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6ED2E61AFE4D8D00A04417 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B6ED2E71AFE4D8D00A04417 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,6 +83,7 @@
 		7B6ED33C1AFEAE4F00A04417 /* GEOLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEOLocations.m; path = "Third Party/ARKit/GEOLocations.m"; sourceTree = "<group>"; };
 		7B6ED3421AFEB50D00A04417 /* MarkerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarkerView.h; path = "Service Layer/MarkerView.h"; sourceTree = "<group>"; };
 		7B6ED3431AFEB50D00A04417 /* MarkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarkerView.m; path = "Service Layer/MarkerView.m"; sourceTree = "<group>"; };
+		883DCD214F789E0CAACEAFAC /* Pods-AR Location BasedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR Location BasedTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AR Location BasedTests/Pods-AR Location BasedTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,7 @@
 			files = (
 				7B6ED31D1AFE596200A04417 /* CoreLocation.framework in Frameworks */,
 				7B6ED31A1AFE586E00A04417 /* MapKit.framework in Frameworks */,
+				6159623325CB520C43CADE55 /* libPods-AR Location Based.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5C3867FF5AD9F37BB33471B /* libPods-AR Location BasedTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +115,7 @@
 				7B6ED2FE1AFE4D8D00A04417 /* AR Location BasedTests */,
 				7B6ED31B1AFE587F00A04417 /* Frameworks */,
 				7B6ED2E31AFE4D8D00A04417 /* Products */,
+				FC4A824240693918750AE77A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -208,6 +219,8 @@
 			children = (
 				7B6ED31C1AFE596200A04417 /* CoreLocation.framework */,
 				7B6ED3191AFE586E00A04417 /* MapKit.framework */,
+				0C51AAE02DD41354723CA9EC /* libPods-AR Location Based.a */,
+				577F4026927A0CB2B7D57C2A /* libPods-AR Location BasedTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -261,6 +274,17 @@
 			name = ARKit;
 			sourceTree = "<group>";
 		};
+		FC4A824240693918750AE77A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				47DA05B0C4FC6A524FC76177 /* Pods-AR Location Based.debug.xcconfig */,
+				575DDED3BF2D640B9B436CA5 /* Pods-AR Location Based.release.xcconfig */,
+				13BDA9287269C5D59F0A657B /* Pods-AR Location BasedTests.debug.xcconfig */,
+				883DCD214F789E0CAACEAFAC /* Pods-AR Location BasedTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -268,9 +292,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B6ED3051AFE4D8D00A04417 /* Build configuration list for PBXNativeTarget "AR Location Based" */;
 			buildPhases = (
+				5A5659261717813196122F55 /* [CP] Check Pods Manifest.lock */,
 				7B6ED2DE1AFE4D8D00A04417 /* Sources */,
 				7B6ED2DF1AFE4D8D00A04417 /* Frameworks */,
 				7B6ED2E01AFE4D8D00A04417 /* Resources */,
+				26B6084B250AD63C4EEEC794 /* [CP] Embed Pods Frameworks */,
+				63CBFAB2C4363766E2593F82 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -285,9 +312,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B6ED3081AFE4D8D00A04417 /* Build configuration list for PBXNativeTarget "AR Location BasedTests" */;
 			buildPhases = (
+				4F6C0F8874930B6D3A5B8955 /* [CP] Check Pods Manifest.lock */,
 				7B6ED2F71AFE4D8D00A04417 /* Sources */,
 				7B6ED2F81AFE4D8D00A04417 /* Frameworks */,
 				7B6ED2F91AFE4D8D00A04417 /* Resources */,
+				E0C2DF3E42A04FB982228905 /* [CP] Embed Pods Frameworks */,
+				BAF9F06061837B4AB4C05A04 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -310,7 +340,7 @@
 				TargetAttributes = {
 					7B6ED2E11AFE4D8D00A04417 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 4SYCR8M2FN;
+						DevelopmentTeam = LWLRJ9CAEQ;
 					};
 					7B6ED2FA1AFE4D8D00A04417 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -356,6 +386,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26B6084B250AD63C4EEEC794 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR Location Based/Pods-AR Location Based-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F6C0F8874930B6D3A5B8955 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5A5659261717813196122F55 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		63CBFAB2C4363766E2593F82 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR Location Based/Pods-AR Location Based-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BAF9F06061837B4AB4C05A04 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR Location BasedTests/Pods-AR Location BasedTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0C2DF3E42A04FB982228905 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR Location BasedTests/Pods-AR Location BasedTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7B6ED2DE1AFE4D8D00A04417 /* Sources */ = {
@@ -498,9 +621,11 @@
 		};
 		7B6ED3061AFE4D8D00A04417 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47DA05B0C4FC6A524FC76177 /* Pods-AR Location Based.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = LWLRJ9CAEQ;
 				INFOPLIST_FILE = "AR Location Based/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -509,9 +634,11 @@
 		};
 		7B6ED3071AFE4D8D00A04417 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 575DDED3BF2D640B9B436CA5 /* Pods-AR Location Based.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = LWLRJ9CAEQ;
 				INFOPLIST_FILE = "AR Location Based/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -520,6 +647,7 @@
 		};
 		7B6ED3091AFE4D8D00A04417 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13BDA9287269C5D59F0A657B /* Pods-AR Location BasedTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -539,6 +667,7 @@
 		};
 		7B6ED30A1AFE4D8D00A04417 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 883DCD214F789E0CAACEAFAC /* Pods-AR Location BasedTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

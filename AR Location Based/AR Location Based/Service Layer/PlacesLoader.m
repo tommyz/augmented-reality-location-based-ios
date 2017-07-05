@@ -16,7 +16,7 @@
 #import "Place.h"
 
 NSString *const apiURL = @"https://maps.googleapis.com/maps/api/place/";
-NSString *const apiKey = @"AIzaSyBAydiT1VyV_HbZ1ATzNb2RQw_nDmPypqM";
+NSString *const apiKey = @"AIzaSyB8TcZ97GeidQ8p4txN4Wx-QL1_6Zsj8rU";
 NSString *const serverKey = @"AIzaSyAN1H-2VZDZ7SEg9_ECoOPR7DFNk9A1VuI";
 
 @interface PlacesLoader()
@@ -62,7 +62,7 @@ NSString *const serverKey = @"AIzaSyAN1H-2VZDZ7SEg9_ECoOPR7DFNk9A1VuI";
     [uri appendFormat:@"&radius=%d", radius];
     [uri appendFormat:@"&sensor=true"];
     [uri appendFormat:@"&types=establishment"];
-    [uri appendFormat:@"&key=%@", serverKey];
+    [uri appendFormat:@"&key=%@", apiKey];
 
     NSString *urlString = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -96,7 +96,7 @@ NSString *const serverKey = @"AIzaSyAN1H-2VZDZ7SEg9_ECoOPR7DFNk9A1VuI";
     [uri appendString:@"details/json?"];
     [uri appendFormat:@"reference=%@", location.reference];
     [uri appendString:@"&sensor=true"];
-    [uri appendFormat:@"&key=%@", serverKey];
+    [uri appendFormat:@"&key=%@", apiKey];
 
     NSString *urlString = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 

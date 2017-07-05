@@ -8,7 +8,8 @@
 
 #import "MainViewController.h"
 #import "FlipsideViewController.h"
-
+@import GooglePlaces;
+//@import GMSPlacePickerConfig;
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -26,7 +27,9 @@ NSString * const kLatitudeKeypath = @"geometry.location.lat";
 NSString * const kLongitudeKeypath = @"geometry.location.lng";
 
 @interface MainViewController ()<FlipsideViewControllerDelegate,CLLocationManagerDelegate,MKMapViewDelegate>
-
+{
+    GMSPlacesClient *_placesClient;
+}
 @property (nonatomic,strong) MKMapView *mapView;
 @property (nonatomic,strong) IBOutlet MKMapView *mapViewVertical;
 @property (nonatomic,strong) IBOutlet MKMapView *mapViewHorizontal;
@@ -53,7 +56,9 @@ const double MAX_DISTANCE_ACCURACY_IN_METERS = 100.0;
     [self setupLocationManager];
     
     self.mapView = self.mapViewVertical;
-    
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading];
+    self.mapView.showsCompass = YES;
+    _placesClient = [GMSPlacesClient sharedClient];
 }
 
 -(void)didReceiveMemoryWarning {
@@ -83,6 +88,57 @@ const double MAX_DISTANCE_ACCURACY_IN_METERS = 100.0;
 
 }
 
+#pragma mark - Private methods
+
+-(void)setupLocationManager {
+    
+    
+    if (![CLLocationManager locationServicesEnabled])
+    {
+        //提示用户无法进行定位操作
+        NSLog(@"![CLLocationManager locationServicesEnabled]");
+        //        _isUseAutoLocation = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"postGPSErrorServices" object:nil];
+    }
+    else
+    {
+        NSLog(@"nnnnnn![CLLocationManager locationServicesEnabled]");
+        
+        NSLog(@"[CLLocationManager authorizationStatus]=%d",[CLLocationManager authorizationStatus]);
+        if ([CLLocationManager authorizationStatus] == 2)
+        {
+            //            _isUseAutoLocation = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"postGPSErrorDenied" object:nil];
+        }
+        else
+        {
+            
+            if (_locationManager == nil)
+            {
+                _locationManager = [[CLLocationManager alloc] init];
+                _locationManager.delegate = self;
+                _locationManager.distanceFilter = kCLDistanceFilterNone;
+                _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            }
+            
+            // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+            if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+                [_locationManager requestWhenInUseAuthorization];
+            }
+            
+            _mapView.showsUserLocation = YES;
+            
+            [_locationManager startUpdatingLocation];
+            
+            if ([CLLocationManager headingAvailable]) {
+                _locationManager.headingFilter = 5;
+                [_locationManager startUpdatingHeading];
+            }
+            
+        }
+    }
+}
+
 #pragma mark - FlipsideViewControllerDelegate methods
 
 -(void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
@@ -103,79 +159,40 @@ const double MAX_DISTANCE_ACCURACY_IN_METERS = 100.0;
 
 }
 
-#pragma mark - CLLocationManagerDelegate methods
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+#pragma mark -
+#pragma mark CLLocationManagerDelegate
 
-    CLLocation *newestLocation = [locations lastObject];
-
-    CLLocationAccuracy accuracy = [newestLocation horizontalAccuracy];
-
-    if ( accuracy < MAX_DISTANCE_ACCURACY_IN_METERS ) {
-
-        MKCoordinateSpan span = MKCoordinateSpanMake( 0.14, 0.14 );
-        MKCoordinateRegion region = MKCoordinateRegionMake( [newestLocation coordinate], span );
-
-        [self.mapView setRegion:region animated:YES];
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"didUpdateLocations locations");
+    CLLocation *currentLocation = [locations lastObject];
+    NSTimeInterval eventInterval = [currentLocation.timestamp timeIntervalSinceNow];
+    
+    if (fabs(eventInterval) < 30 && fabs(eventInterval) >= 0)
+    {
+        if (currentLocation.horizontalAccuracy < 0)
+        {
+            return;
+        }
+        [_locationManager stopUpdatingLocation];
         
-        int radiusInMeters = 1000;
-
-        [[PlacesLoader sharedInstance] loadPOIsForLocation:[locations lastObject] radius:radiusInMeters successHandler:^(NSDictionary *response) {
-
-            if ( [response[@"status"] isEqualToString:@"OK"] ) {
-
-                id places = response[@"results"];
-
-                NSMutableArray *temp = [NSMutableArray array];
-                
-                if ( [places isKindOfClass:[NSArray class]] ) {
-                    
-                    for ( NSDictionary *resultsDict in places ) {
-
-                        float latitude = [[resultsDict valueForKeyPath:kLatitudeKeypath] floatValue];
-                        float longitude = [[resultsDict valueForKeyPath:kLongitudeKeypath] floatValue];
-                        
-                        CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-                        
-                        NSString *reference = resultsDict[kReferenceKey];
-                        NSString *name = [resultsDict objectForKey:kNameKey];
-                        NSString *address = [resultsDict objectForKey:kAddressKey];
-                        
-                        Place *currentPlace = [[Place alloc] initWithLocation:location
-                                                                    reference:reference
-                                                                         name:name
-                                                                      address:address];
-
-                        [temp addObject:currentPlace];
-
-                        PlaceAnnotation *annotation = [[PlaceAnnotation alloc] initWithPlace:currentPlace];
-                        [self.mapView addAnnotation:annotation];
-                        
-                    }
-                    
-                }
-                
-                self.locations = [temp copy];
-                
-                NSLog( @"Locations: %@", self.locations );
-                
-            }
-
-        } errorHandler:^(NSError *error) {
-
-            NSLog( @"Error: %@", error );
-
-        }];
-
-        // Stop to save battery life
-        [manager stopUpdatingLocation];
-
+        [self locationUpdate:currentLocation];
+        
     }
-
+    
 }
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog( @"locationManager: didFailWithError: %@", error );
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"locationManager didFailWithError");
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    if (newHeading.headingAccuracy < 0)
+        return;
 }
 
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -183,23 +200,99 @@ const double MAX_DISTANCE_ACCURACY_IN_METERS = 100.0;
     NSLog( @"didChangeAuthorizationStatus: %i", status );
     
     // To use in the future
-//    self.gpsDenied = ( status == kCLAuthorizationStatusDenied );
+    //    self.gpsDenied = ( status == kCLAuthorizationStatusDenied );
     
 }
 
-#pragma mark - Private methods
-
--(void)setupLocationManager {
+- (void)locationUpdate:(CLLocation*)tempLoaction
+{
     
-    self.locationManager = [CLLocationManager new];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    NSLog(@"[_locationManager stopUpdatingLocation]");
     
-    if ( [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)] )
-        [self.locationManager requestWhenInUseAuthorization];
+    MKCoordinateSpan span = MKCoordinateSpanMake( 0.0014, 0.0014 );
+//    MKCoordinateSpan span = MKCoordinateSpanMake( 0.5, 0.5 );
+    MKCoordinateRegion region = MKCoordinateRegionMake( [tempLoaction coordinate], span );
+    self.mapView.showsUserLocation = YES;
+    [self.mapView setRegion:region animated:YES];
     
-    [self.locationManager startUpdatingLocation];
-    
+    [_placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList *placeLikelihoodList, NSError *error){
+        if (error != nil) {
+            NSLog(@"Pick Place error %@", [error localizedDescription]);
+            return;
+        }
+       
+        if (placeLikelihoodList != nil) {
+           
+            GMSPlace *place = [[[placeLikelihoodList likelihoods] firstObject] place];
+            if (place != nil) {
+                NSLog(@"place=%@",place);
+                NSLog(@"place.name=%@",place.name);
+            }
+            NSMutableArray *temp = [NSMutableArray new];
+            
+            for (NSInteger i = 0; i < [placeLikelihoodList likelihoods].count; i++) {
+                GMSPlace *place = [[[placeLikelihoodList likelihoods] objectAtIndex:i] place];
+                
+                float latitude = place.coordinate.latitude;
+                float longitude = place.coordinate.longitude;
+                
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+                
+                NSString *reference = @"tommyz";
+                NSString *name = place.name;
+                NSString *address = [[place.formattedAddress componentsSeparatedByString:@", "]
+                                     componentsJoinedByString:@"\n"];
+                
+                Place *currentPlace = [[Place alloc] initWithLocation:location
+                                                            reference:reference
+                                                                 name:name
+                                                              address:address];
+                
+                [temp addObject:currentPlace];
+                
+                PlaceAnnotation *annotation = [[PlaceAnnotation alloc] initWithPlace:currentPlace];
+                [self.mapView addAnnotation:annotation];
+            }
+            self.locations = [temp copy];
+        }
+    }];
 }
 
+
+#pragma mark - Map View Delegate
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    
+    static NSString *identifier = @"PlaceAnnotation";
+    if ([annotation isKindOfClass:[PlaceAnnotation class]]) {
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [_mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        } else {
+            annotationView.annotation = annotation;
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        
+        return annotationView;
+    }
+    
+    return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
+{
+    dispatch_async(dispatch_get_main_queue(),^{
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager headingAvailable]) {
+                [_mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:NO];
+            }else{
+                [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:NO];
+            }
+        }else{
+            [_mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
+        }
+    });
+}
 @end

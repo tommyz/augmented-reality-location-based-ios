@@ -150,14 +150,16 @@
 	// start our heading readings and our accelerometer readings.
 	if (![self locationManager]) {
 		CLLocationManager *newLocationManager = [[CLLocationManager alloc] init];
-
+        
         [newLocationManager setHeadingFilter: HEADING_FILTER];
         [newLocationManager setDistanceFilter:DISTANCE_FILTER];
 		[newLocationManager setDesiredAccuracy: kCLLocationAccuracyNearestTenMeters];
 		[newLocationManager startUpdatingHeading];
 		[newLocationManager startUpdatingLocation];
 		[newLocationManager setDelegate: self];
-        
+        if ([newLocationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [newLocationManager requestWhenInUseAuthorization];
+        }
         [self setLocationManager: newLocationManager];
 	}
 			
